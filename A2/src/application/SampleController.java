@@ -19,26 +19,23 @@ public class SampleController implements Initializable{
     private TextField groupName;
     
     @FXML
-    private TreeView<String> treeView = new TreeView<>();
+    private TreeView<String> treeView;
     
     @FXML
     private void addUser(ActionEvent event) {
     	Admin.getInstance().addUser(username.getText());
-    	//TreeItem<String> node = Admin.getInstance().getTreeMap();
-		//treeView.setRoot(node);
     }
     
     @FXML
     private void addGroup(ActionEvent event) {
     	Admin.getInstance().addGroup(groupName.getText());
-    	//TreeItem<String> node = Admin.getInstance().getTreeMap();
-		//treeView.setRoot(node);
     }
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		TreeItem<String> node = Admin.getInstance().getTreeMap();
-		treeView.setRoot(node);
+		TreeItem node = Admin.getInstance().getForTreeView();
+		treeView = new TreeView<String>(node);
+		System.out.println(Admin.getInstance().getForTreeView());
 	}
 
 }
