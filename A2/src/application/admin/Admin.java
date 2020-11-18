@@ -1,16 +1,24 @@
 package application.admin;
 
-import javafx.scene.control.TreeItem;
+import java.util.ArrayList;
+import java.util.List;
+
 import application.composite.*;
+import application.data.UserList;
 
 public class Admin {
 
 	private static Admin pointer;
 	private static boolean isInstantiated = false;
 	
+	private List<User> userList;
+	private List<Group> groupList;
+	
 	private Admin() {
 		if(!isInstantiated){
 			isInstantiated = true;
+			userList = new ArrayList<User>();
+			groupList = new ArrayList<Group>();
 			System.out.println("Created Admin Instance");
 		}
 		else {
@@ -26,16 +34,31 @@ public class Admin {
 		return pointer;
 	}
 	
-	public void addGroup(String groupId) {
-	}
-
-
+	 public void addGroup(String groupId) {
+		 Group temp = new Group(groupId);
+		groupList.add(temp);
+	 }
 
 	 public void addUser(String username) {
-	  
-	
-	  
+		 userList.add(new User(username));
 	 }
 	 
+	 public List<User> getUserList() {
+		 return userList;
+	 }
+	 
+	 public List<Group> getGroupList() {
+		 return groupList;
+	 }
 
+	public int getGroupSize() {
+		return groupList.size();
+	}
+	
+	public int getUserSize() {
+		return userList.size();
+	}
+	
 }
+
+
