@@ -33,4 +33,8 @@ public class User implements Component{
 	public boolean isLeaf() {
 		return isLeaf;
 	}
+
+	public void addComposite(Group group) {}
+
+	public void addLeaf(User user) {}
 }

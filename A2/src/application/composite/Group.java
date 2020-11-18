@@ -18,8 +18,12 @@ public class Group implements Component{
 		return groupId;
 	}
 	
-	public void addComponent(Component component) {
-		childList.add(component);
+	public void addComposite(Group group) {
+		childList.add(group);
+	}
+	
+	public void addLeaf(User user) {
+		childList.add(user);
 	}
 	
 	public List<Component> getChildList(){
