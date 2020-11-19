@@ -8,12 +8,11 @@ import application.observer.*;
 
 public class User implements Component, Subject, Observer{
 
-	private static List<Observer> observers = new ArrayList<Observer>();
+	private List<Observer> observers;
 	private String username;
 	private List<String> followers;
 	private List<String> followings;
 	private List<String> tweets;
-	private String lastTweet;
 	private static final boolean isLeaf = true;
 	
 	public User(String username) {
@@ -21,6 +20,7 @@ public class User implements Component, Subject, Observer{
 		followers = new ArrayList<String>();
 		followings = new ArrayList<String>();
 		tweets = new ArrayList<String>();
+		observers = new ArrayList<Observer>();
 	}
 	
 	public String getId() {
@@ -28,10 +28,8 @@ public class User implements Component, Subject, Observer{
 	}
 	
 	public void addFollower(String userId) {
-		for(User user: Admin.getInstance().getUserList()) {
-			if(user.getId().equals(userId));
-			followers.add(userId);
-		}
+
+		followers.add(userId);
 	}
 	
 	public void addFollowing(String userId) {
@@ -40,8 +38,11 @@ public class User implements Component, Subject, Observer{
 			if(user.getId().equals(userId)) {
 				user.addFollower(this.getId());
 				user.attach(this);
+				System.out.println("Follower for=" + user.getId() + "follower-" + user.getFollowers().size() + "following-" + user.getFollowings().size());
+				System.out.println("Number of " + user.observers.size());
 			}
 		}
+		
 	}
 	
 	public void addTweet(String text) {
@@ -84,17 +85,15 @@ public class User implements Component, Subject, Observer{
 	@Override
 	public void notifyObservers(String text) {
 		for(Observer observer: observers) {
-			observer.update(text);
+			observer.update(this, text);
 		}
-		System.out.println(observers.size());
-		System.out.println("NOTIFYUSERS");
 	}
-
 	
 	@Override
-	public void update(String text) {
-		System.out.println("UPDATE");
-		this.addTweet(text);
+	public void update(Subject subject, String text) {
+		if(subject instanceof User ) {
+			this.addTweet(text);
+		}
 	}
 	
 	

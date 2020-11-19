@@ -31,7 +31,7 @@ public class SampleController implements Initializable{
     private Label message;
     
 	@FXML
-    private TextField username;
+    private TextField username = new TextField("");
 
     @FXML
     private TextField groupName;
@@ -53,9 +53,10 @@ public class SampleController implements Initializable{
     @FXML
     private void addUser(ActionEvent event) {
     	
+    	Admin.getInstance().addUser(username.getText());
     	TreeItem<String> tempNode = new TreeItem<String>(username.getText());
-    	Component tempComp = new User(username.getText());
-    	
+    	User tempComp = new User(username.getText());
+
     	if(component.getId() == "Root") {
     		root.getChildren().add(tempNode);
     		node = tempNode;
@@ -74,7 +75,7 @@ public class SampleController implements Initializable{
     		node = tempNode;
     		component = tempComp;
     	}
-    	Admin.getInstance().addUser(username.getText());
+
     }
     
     @FXML
@@ -121,7 +122,6 @@ public class SampleController implements Initializable{
     void somebutton(ActionEvent event) {
 
     	String selected = treeView.getSelectionModel().getSelectedItem().getValue();
-
     	for(User user: Admin.getInstance().getUserList()){
     		if(user.getId().equals(selected)) {
     	        try {

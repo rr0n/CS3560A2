@@ -35,7 +35,7 @@ public class UserViewController implements Initializable{
 
     @FXML
     void postTweet(ActionEvent event) {
-    	String tempString = tweet.getText();
+    	String tempString = user.getId() + " : " + tweet.getText();
     	user.addTweet(tempString);
 		user.notifyObservers(tempString);
 		tweetView.getItems().add(tempString);
