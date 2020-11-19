@@ -1,7 +1,6 @@
 package application.composite;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import application.admin.Admin;
@@ -9,18 +8,19 @@ import application.observer.*;
 
 public class User implements Component, Subject, Observer{
 
-	private List<Observer> observers = new ArrayList<Observer>();
+	private static List<Observer> observers = new ArrayList<Observer>();
 	private String username;
 	private List<String> followers;
 	private List<String> followings;
-	private List<String> messages;
+	private List<String> tweets;
+	private String lastTweet;
 	private static final boolean isLeaf = true;
 	
 	public User(String username) {
 		this.username = username;
 		followers = new ArrayList<String>();
 		followings = new ArrayList<String>();
-		messages = new ArrayList<String>();
+		tweets = new ArrayList<String>();
 	}
 	
 	public String getId() {
@@ -44,6 +44,10 @@ public class User implements Component, Subject, Observer{
 		}
 	}
 	
+	public void addTweet(String text) {
+		tweets.add(text);
+	}
+	
 	public boolean isLeaf() {
 		return isLeaf;
 	}
@@ -55,12 +59,18 @@ public class User implements Component, Subject, Observer{
 	public List<String> getFollowings(){
 		return followings;
 	}
+	
+	public List<String> getTweets(){
+		return tweets;
+	}
+	
 	/******************************************************/
 	public void addComposite(Group group) {}
 
 	public void addLeaf(User user) {}
 
 	/*****************************************************/
+	
 	@Override
 	public void attach(Observer observer) {
 		observers.add(observer);
@@ -72,17 +82,19 @@ public class User implements Component, Subject, Observer{
 	}
 
 	@Override
-	public void notifyObservers() {
+	public void notifyObservers(String text) {
 		for(Observer observer: observers) {
-			observer.update(this);
+			observer.update(text);
 		}
+		System.out.println(observers.size());
+		System.out.println("NOTIFYUSERS");
 	}
 
+	
 	@Override
-	public void update(Subject subject) {
-		if(subject instanceof User) {
-			this.addFollower(subject.getId());
-		}
+	public void update(String text) {
+		System.out.println("UPDATE");
+		this.addTweet(text);
 	}
 	
 	

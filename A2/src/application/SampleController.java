@@ -6,18 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import application.admin.Admin;
 import application.composite.Component;
@@ -126,11 +122,8 @@ public class SampleController implements Initializable{
 
     	String selected = treeView.getSelectionModel().getSelectedItem().getValue();
 
-    	System.out.println(selected);
     	for(User user: Admin.getInstance().getUserList()){
     		if(user.getId().equals(selected)) {
-    			System.out.println("User is valid");
-    			
     	        try {
     	    		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UserView.fxml"));
     	    		Pane userView = fxmlLoader.load();

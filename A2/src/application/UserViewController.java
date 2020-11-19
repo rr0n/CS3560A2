@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class UserViewController implements Initializable{
@@ -19,7 +18,13 @@ public class UserViewController implements Initializable{
     private ListView<String> listView = new ListView<String>();
 
     @FXML
+    private ListView<String> tweetView = new ListView<String>();
+    
+    @FXML
     private TextField inputField;
+    
+    @FXML
+    private TextField tweet;
     
     @FXML
     void followUser(ActionEvent event) {
@@ -30,13 +35,21 @@ public class UserViewController implements Initializable{
 
     @FXML
     void postTweet(ActionEvent event) {
-
+    	String tempString = tweet.getText();
+    	user.addTweet(tempString);
+		user.notifyObservers(tempString);
+		tweetView.getItems().add(tempString);
     }
     
 	public void setUser(User user) {
 		this.user = user;
+		//the listviewing/ updating
 		for(String following: user.getFollowings()) {
 			listView.getItems().add(following);
+		}
+		//tweet views /updating
+		for(String tweets: user.getTweets()) {
+			tweetView.getItems().add(tweets);
 		}
 
 	}
