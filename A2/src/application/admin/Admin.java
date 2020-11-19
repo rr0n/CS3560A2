@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.composite.*;
+import application.visitor.UserVisitor;
+import application.visitor.Visitable;
 
 public class Admin {
 
 	private static Admin pointer;
 	private static boolean isInstantiated = false;
-	
 	private List<User> userList;
 	private List<Group> groupList;
 	
@@ -56,6 +57,17 @@ public class Admin {
 	
 	public int getUserSize() {
 		return userList.size();
+	}
+	
+	public int getTotalMessages() {
+		List<String> temp = new ArrayList<>();
+		UserVisitor userVisitor = new UserVisitor();
+		
+		for(Visitable user: userList) {
+			user.accept(userVisitor);
+		}
+		temp.addAll(userVisitor.getAllMessages());
+		return temp.size();
 	}
 	
 }

@@ -119,7 +119,7 @@ public class SampleController implements Initializable{
     }
     
     @FXML
-    void somebutton(ActionEvent event) {
+    void getUserView(ActionEvent event) {
 
     	String selected = treeView.getSelectionModel().getSelectedItem().getValue();
     	for(User user: Admin.getInstance().getUserList()){
@@ -139,6 +139,13 @@ public class SampleController implements Initializable{
     	        break;
     		}
     	}
+    }
+    
+    @FXML
+    void messageCount(ActionEvent event) {
+    	int messageCount = Admin.getInstance().getTotalMessages();
+    	String temp = "Total Messages: " + Integer.toString(messageCount);
+    	info.setText(temp);
     }
     
 	@Override

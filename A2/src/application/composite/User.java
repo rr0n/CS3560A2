@@ -5,8 +5,10 @@ import java.util.List;
 
 import application.admin.Admin;
 import application.observer.*;
+import application.visitor.Visitable;
+import application.visitor.Visitor;
 
-public class User implements Component, Subject, Observer{
+public class User implements Component, Subject, Observer, Visitable{
 
 	private List<Observer> observers;
 	private String username;
@@ -95,6 +97,10 @@ public class User implements Component, Subject, Observer{
 			this.addTweet(text);
 		}
 	}
-	
-	
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+		
+	}
 }
