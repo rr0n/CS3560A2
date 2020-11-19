@@ -75,6 +75,7 @@ public class SampleController implements Initializable{
     		node = tempNode;
     		component = tempComp;
     	}
+    	username.setText("");
 
     }
     
@@ -102,6 +103,7 @@ public class SampleController implements Initializable{
     	}
     	
     	Admin.getInstance().addGroup(groupName.getText());
+    	groupName.setText("");
     }
     
     @FXML

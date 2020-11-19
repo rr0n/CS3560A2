@@ -6,18 +6,13 @@ import java.util.List;
 import application.composite.User;
 
 public class UserVisitor implements Visitor{
-	private List<String> messages = new ArrayList<String>();
+	private static List<String> messages = new ArrayList<String>();
 
 	@Override
 	public void visit(User user) {
 		for(String msg: user.getTweets()) {
-			for(int i = 0; i < messages.size(); i++) {
-				if(!(msg.equals(messages.get(i)))) {
-					messages.add(msg);
-				}
-			}
+			messages.add(msg);
 		}
-		messages.addAll(user.getTweets());
 	}
 	
 	public List<String> getAllMessages(){

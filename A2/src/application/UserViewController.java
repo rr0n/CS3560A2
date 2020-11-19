@@ -31,6 +31,7 @@ public class UserViewController implements Initializable{
     	String tempString = inputField.getText();
     	user.addFollowing(tempString);
     	listView.getItems().add(tempString);
+    	inputField.setText("");
     }
 
     @FXML
@@ -39,6 +40,7 @@ public class UserViewController implements Initializable{
     	user.addTweet(tempString);
 		user.notifyObservers(tempString);
 		tweetView.getItems().add(tempString);
+		tweet.setText("");
     }
     
 	public void setUser(User user) {

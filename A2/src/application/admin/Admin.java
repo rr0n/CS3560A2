@@ -66,6 +66,7 @@ public class Admin {
 		for(Visitable user: userList) {
 			user.accept(userVisitor);
 		}
+		
 		temp.addAll(userVisitor.getAllMessages());
 		return temp.size();
 	}
