@@ -11,7 +11,7 @@
       <Button layoutX="491.0" layoutY="254.0" mnemonicParsing="false" onAction="#showTotalGroups" prefHeight="60.0" prefWidth="140.0" text="Show Total Groups" />
       <Button layoutX="491.0" layoutY="328.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="140.0" text="Button" />
       <Button layoutX="312.0" layoutY="328.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="140.0" text="Button" />
-      <Button layoutX="288.0" layoutY="122.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="405.0" text="Button" />
+      <Button layoutX="288.0" layoutY="122.0" mnemonicParsing="false" onAction="#somebutton" prefHeight="41.0" prefWidth="405.0" text="Button" />
       <Button fx:id="groupButton" layoutX="511.0" layoutY="73.0" mnemonicParsing="false" onAction="#addGroup" prefHeight="25.0" prefWidth="113.0" text="Add Group" />
       <Button fx:id="userButton" layoutX="511.0" layoutY="36.0" mnemonicParsing="false" onAction="#addUser" prefHeight="25.0" prefWidth="113.0" text="Add User" />
       <TextField fx:id="username" layoutX="288.0" layoutY="36.0" prefHeight="25.0" prefWidth="209.0" />

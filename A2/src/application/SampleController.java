@@ -1,23 +1,28 @@
 package application;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import application.admin.Admin;
 import application.composite.Component;
 import application.composite.Group;
 import application.composite.User;
-import application.data.UserList;
 public class SampleController implements Initializable{
 
 	private TreeItem<String> node; // current node
@@ -116,10 +121,38 @@ public class SampleController implements Initializable{
     	info.setText(temp);
     }
     
+    @FXML
+    void somebutton(ActionEvent event) {
+
+    	String selected = treeView.getSelectionModel().getSelectedItem().getValue();
+
+    	System.out.println(selected);
+    	for(User user: Admin.getInstance().getUserList()){
+    		if(user.getId().equals(selected)) {
+    			System.out.println("User is valid");
+    			
+    	        try {
+    	    		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UserView.fxml"));
+    	    		Pane userView = fxmlLoader.load();
+    	    		UserViewController userViewController = fxmlLoader.<UserViewController>getController();
+    	    		userViewController.setUser(user);
+    	        	Stage stage = new Stage();
+    	        	stage.setTitle(selected);
+    	        	stage.setScene(new Scene(userView));
+    	        	stage.show();
+    	    	}catch(Exception e) {
+    				e.printStackTrace();
+    			}
+    	        break;
+    		}
+    	}
+    }
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		root = new TreeItem<String>("Root");
 		treeView.setRoot(root);
+		//treeView.getSelectionModel();
 		root.setExpanded(true);
 		component = new Group("Root");
 		Admin.getInstance().addGroup("Root");
